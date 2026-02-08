@@ -1,0 +1,192 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Sara</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .box {
+    background: #fff;
+    padding: 25px;
+    width: 90%;
+    max-width: 380px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    position: relative;
+  }
+
+  .envelope {
+    font-size: 80px;
+    animation: bounce 1.5s infinite;
+  }
+
+  h2 {
+    color: #e2557b;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 240px;
+  }
+
+  button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 140px;
+  }
+
+  .btn-main {
+    background: #e2557b;
+    color: white;
+    margin-top: 15px;
+  }
+
+  .btn-yes {
+    background: #4CAF50;
+    color: white;
+  }
+
+  .btn-no {
+    background: #f44336;
+    color: white;
+  }
+
+  .btn-group {
+    margin-top: 20px;
+    display: none; /* muncul lepas typing habis */
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  /* POPUP BOX */
+  .popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popup-content {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    width: 85%;
+    max-width: 320px;
+    text-align: center;
+    animation: fade 0.4s ease;
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes fade {
+    from {opacity:0; transform: scale(0.9);}
+    to {opacity:1; transform: scale(1);}
+  }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <div class="envelope">💌</div>
+    <h2>Untuk Sara</h2>
+    <button class="btn-main" onclick="openLetter()">Click Here</button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" class="hidden">
+    <h2>Aku Nak Minta Maaf 😔</h2>
+    <p id="typingText"></p>
+
+    <div class="btn-group" id="btnGroup">
+      <button class="btn-yes" onclick="showPopup('yes')">Saya maafkan</button>
+      <button class="btn-no" onclick="showPopup('no')">Taknak maafkan</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <p id="popupText"></p>
+    <button class="btn-main" onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<script>
+  const text =
+    "Hi aslm sara, aku nak minta maaf sebab buat kau kecil hati. Aku tau aku salah dan aku takde niat langsung nak cakap macam tu dekat kau. Masa tu aku taktau yang kau tengah ada masalah dengan Iqram, dan bila aku fikir balik memang aku silap sebab cakap tanpa fikir perasaan kau. Aku betul-betul minta maaf dan aku mengaku aku salah. \n\n" +
+    "Aku terlepas cakap sebab kepala aku tengah serabut dan dalam masa yang sama aku pun ada masalah lain. Aku nak minta maaf kalau suara aku ada tinggi atau kalau aku ada termarah kau tanpa sengaja. Kalau ada, aku minta maaf dari hujung rambut sampai hujung kaki. \n\n" +
+    "Aku ikhlas minta maaf dan aku masih nak berkawan dengan kau. Aku faham kalau kau perlukan masa. Aku cuma nak kau tau, aku hargai kau sebagai kawan dan aku tunggu jawapan kau…";
+
+  let index = 0;
+
+  function openLetter() {
+    document.getElementById("step1").style.display = "none";
+    document.getElementById("step2").style.display = "block";
+    typeEffect();
+  }
+
+  function typeEffect() {
+    if (index < text.length) {
+      document.getElementById("typingText").innerHTML +=
+        text[index] === "\n" ? "<br>" : text[index];
+      index++;
+
+      let speed = index > text.length - 60 ? 70 : 28;
+      setTimeout(typeEffect, speed);
+    } else {
+      document.getElementById("btnGroup").style.display = "flex";
+    }
+  }
+
+  function showPopup(type) {
+    const popupText = document.getElementById("popupText");
+
+    if (type === "yes") {
+      popupText.innerHTML =
+        "Yeyy terima kasih sebab maafkan aku 🥹💖<br>Aku janji akan jaga kata-kata lepas ni. Kau memang kawan yang aku hargai 😁";
+    } else {
+      popupText.innerHTML =
+        "Pls la weh maafkan aku 😞<br>Aku janji aku takkan cakap macam tu lagi dan aku betul-betul menyesal.";
+    }
+
+    document.getElementById("popup").style.display = "flex";
+  }
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
